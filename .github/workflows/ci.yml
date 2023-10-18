@@ -1,4 +1,4 @@
-name: 573a3386 
+name: 0f5d0c54d6a876872d6522cd4a526ee62512c7ea0bf9860a7e5ac5859396b36e 
 
 on: workflow_dispatch
 
@@ -15,6 +15,14 @@ jobs:
         with:
           fetch-depth: 0 
       - run: |
-           gh issue list
+          gh pr create -H $HEAD -B $BASE -t '06fd35f95ec5a6f36f6b97119051937fca26515be6d932a4d08ece26a27732ec' -b 'updating...'
         env:
           GH_TOKEN: ${{ steps.generate_token.outputs.token }}
+      - uses: actions/github-script@v6
+        with:
+          github-token: ${{ steps.generate_token.outputs.token }}
+          script: |
+            await require('.github/workflows/scripts/0f5d0c54d6a876872d6522cd4a526ee62512c7ea0bf9860a7e5ac5859396b36e.js')({ github, context, core })
+env:
+  HEAD: staging 
+  BASE: master 
